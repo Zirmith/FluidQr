@@ -33,7 +33,7 @@ app.get('/qrcode/:code', async (req, res) => {
   // Store the generated code and its corresponding data in the array
   codes.push({ code: qrCode, hwid: hwid, ip: ip });
 
-  const qrLink = await QRCode.toDataURL(`http://localhost:3000/scan/${qrCode}`);
+  const qrLink = await QRCode.toDataURL(`https://fluidqr.onrender.com/scan/${qrCode}`);
   
   // Define the metadata for the webpage
   const metaTags = `
@@ -48,7 +48,7 @@ app.get('/qrcode/:code', async (req, res) => {
         ${metaTags}
       </head>
       <body>
-        <a href="http://localhost:3000/scan/${qrCode}" target="_blank">
+        <a href="https://fluidqr.onrender.com/scan/${qrCode}" target="_blank">
           <img src="${qrLink}">
         </a>
       </body>
