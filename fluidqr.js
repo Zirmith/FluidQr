@@ -16,32 +16,13 @@ app.get('/q/image/:qrCode', async (req, res) => {
   try {
     const qrCodeImage = await QRCode.toDataURL(qrCode);
 
-    // Set Open Graph metadata for the page
-    const title = `FluidQr - ${qrCode}`;
-    const description = `Scan this QR code to join us`;
-    const imageUrl = qrCodeImage;
-
-    // Generate the HTML response with metadata and image
-    const html = `
-      <html>
-        <head>
-          <meta property="og:title" content="${title}" />
-          <meta property="og:description" content="${description}" />
-          <meta property="og:image" content="${imageUrl}" />
-        </head>
-        <body>
-          <img src="${imageUrl}" />
-        </body>
-      </html>
-    `;
-
-    res.send(html);
+    // Send only the QR code image as the response
+    res.send(qrCodeImage);
   } catch (error) {
     console.error(`Error generating QR code image: ${error}`);
     res.status(500).send(`Error generating QR code image`);
   }
 });
-
 // Endpoint to handle a scanned QR code
 app.get("/q/scan/:code", async (req, res) => {
   const qrCode = req.params.code;
